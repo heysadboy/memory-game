@@ -18,8 +18,8 @@ export const generateCardList = (cardNumbersLength: number): Card[] => {
 	const cardList: Card[] = [];
 	const numbersList = generateNumberList(cardNumbersLength);
 
-	numbersList.forEach((i) => {
-		const card = { key: i + 1, imageLocation: `../public/images/${i + 1}.png` };
+	numbersList.forEach((i, index) => {
+		const card = { key: `${i + 1}_${index + 1}`, imageLocation: `../public/images/${i + 1}.png` };
 		cardList.push(card);
 	});
 
