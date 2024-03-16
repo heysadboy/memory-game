@@ -3,9 +3,13 @@
 	width: 100px;
 	height: 100px;
 	border: 1px solid #f1f1f1;
-    border-radius: 2px;
+	border-radius: 2px;
 	perspective: 1000px;
-    cursor: pointer;
+	cursor: pointer;
+}
+
+.flip-card:active {
+	border: 2px solid #48abe0;
 }
 
 .flip-card-inner {
