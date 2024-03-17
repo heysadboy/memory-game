@@ -1,4 +1,6 @@
 import { Card } from "../components/card";
+import { START_TIME, TIMER_FINISH_MESSAGE } from "../constants";
+import { EGameStatus } from "../types";
 
 const generateNumberList = (cardNumbersLength: number) => {
 	const cardNumbers = [...Array(cardNumbersLength).keys(), ...Array(cardNumbersLength).keys()];
@@ -24,4 +26,17 @@ export const generateCardList = (cardNumbersLength: number): Card[] => {
 	});
 
 	return cardList;
+};
+
+export const getGameStatus = () => {
+	const timerElement = document.getElementById("timer");
+	if (timerElement?.textContent === START_TIME) {
+		return EGameStatus.start;
+	}
+
+	if (timerElement?.textContent === TIMER_FINISH_MESSAGE) {
+		return EGameStatus.finish;
+	}
+
+	return EGameStatus.progress;
 };
