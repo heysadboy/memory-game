@@ -15,7 +15,7 @@ export const renderHeader = () => {
 	const header = `<div id="timer">${START_TIME}</div>
 		<div id="total-moves">0</div>
 		<div id="score">0</div>
-		<button id="start-button">START</button>`;
+		<button id="start-button" class="active-start-button">START</button>`;
 
 	headerElement.innerHTML = header;
 	headerContainer.appendChild(headerElement);

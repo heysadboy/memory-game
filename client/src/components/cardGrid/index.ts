@@ -1,3 +1,4 @@
+import { WIN_MESSAGE } from "../../constants";
 import { EGameStatus, EMoveType } from "../../types";
 import { getGameStatus } from "../../utility";
 import { Card, generateCard } from "../card";
@@ -64,6 +65,13 @@ const handleCardClick = (card: Card) => {
 	if (scoreElement !== null) {
 		scoreElement.textContent = String(score);
 	}
+
+	if (cards.length === correctGuessedList.length) {
+		const messageElement = document.getElementById("game-message");
+		if (messageElement !== null) {
+			messageElement.textContent = WIN_MESSAGE;
+		}
+	}
 };
 
 const updateCards = () => {
@@ -78,7 +86,7 @@ const updateCards = () => {
 
 	cards.forEach((card) => {
 		gridElement.appendChild(
-			generateCard(card, correctGuessedList.includes(card.key) || card.key == currentGuess)
+			generateCard(card, card.key == currentGuess, correctGuessedList.includes(card.key))
 		);
 	});
 
