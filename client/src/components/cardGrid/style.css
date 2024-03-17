@@ -1,7 +1,23 @@
-.grid-container {
+.first-grid-container {
+	display: grid;
+	grid-template-columns: repeat(4, 100px);
+	grid-template-rows: repeat(4, 100px);
+	gap: 20px;
+	justify-content: center;
+}
+
+.second-grid-container {
 	display: grid;
 	grid-template-columns: repeat(6, 100px);
 	grid-template-rows: repeat(6, 100px);
-    gap: 20px;
-    justify-content: center;
+	gap: 20px;
+	justify-content: center;
+}
+
+.third-grid-container {
+	display: grid;
+	grid-template-columns: repeat(8, 100px);
+	grid-template-rows: repeat(8, 100px);
+	gap: 20px;
+	justify-content: center;
 }

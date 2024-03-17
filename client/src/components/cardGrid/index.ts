@@ -1,5 +1,5 @@
 import { WIN_MESSAGE } from "../../constants";
-import { EGameStatus, EMoveType } from "../../types";
+import { EGameStatus, EGridChoice, EMoveType } from "../../types";
 import { getGameStatus } from "../../utility";
 import { Card, generateCard } from "../card";
 import "./style.css";
@@ -42,7 +42,7 @@ const checkCardMove = (cardKey: string): EMoveType => {
 	return EMoveType.wrongCard;
 };
 
-const handleCardClick = (card: Card) => {
+const handleCardClick = (card: Card, gridChoice: EGridChoice) => {
 	// Only enable click action on the card when timer starts
 	if (getGameStatus() !== EGameStatus.progress) {
 		return;
@@ -54,7 +54,7 @@ const handleCardClick = (card: Card) => {
 		score += 10;
 	}
 
-	updateCards();
+	updateCards(gridChoice);
 
 	const totalMovesElement = document.getElementById("total-moves");
 	if (totalMovesElement !== null) {
@@ -74,7 +74,7 @@ const handleCardClick = (card: Card) => {
 	}
 };
 
-const updateCards = () => {
+const updateCards = (gridChoice: EGridChoice) => {
 	const gridContainer = document.getElementById("grid-container");
 	if (gridContainer === null) {
 		return;
@@ -82,7 +82,18 @@ const updateCards = () => {
 
 	gridContainer.innerHTML = "";
 	const gridElement = document.createElement("div");
-	gridElement.className = "grid-container";
+
+	if (gridChoice === EGridChoice.first) {
+		gridElement.className = "first-grid-container";
+	}
+
+	if (gridChoice === EGridChoice.second) {
+		gridElement.className = "second-grid-container";
+	}
+
+	if (gridChoice === EGridChoice.third) {
+		gridElement.className = "third-grid-container";
+	}
 
 	cards.forEach((card) => {
 		gridElement.appendChild(
@@ -95,16 +106,16 @@ const updateCards = () => {
 	cards.forEach((card) => {
 		const cardById = document.getElementById(`card-container-${card.key}`);
 		if (cardById) {
-			cardById.addEventListener("click", () => handleCardClick(card));
+			cardById.addEventListener("click", () => handleCardClick(card, gridChoice));
 		}
 	});
 };
 
-export const renderCards = (cardList: Card[]): void => {
+export const renderCards = (cardList: Card[], gridChoice: EGridChoice): void => {
 	correctGuessedList = [];
 	currentGuess = "";
 	cards = cardList;
 	totalMoves = 0;
 	score = 0;
-	updateCards();
+	updateCards(gridChoice);
 };

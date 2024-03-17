@@ -5,8 +5,14 @@ export enum EGameStatus {
 }
 
 export enum EMoveType {
-    newMove,
+	newMove,
 	sameCard,
 	wrongCard,
 	correctCard,
+}
+
+export enum EGridChoice {
+	first,
+	second,
+	third,
 }
