@@ -3,7 +3,7 @@ import { getGameStatus } from "../../utility";
 import { Card, generateCard } from "../card";
 import "./style.css";
 
-const correctGuessedList: string[] = [];
+let correctGuessedList: string[] = [];
 let currentGuess = "";
 let cards: Card[] = [];
 let totalMoves = 0;
@@ -51,8 +51,9 @@ const handleCardClick = (card: Card) => {
 
 	if (cardMoveResult === EMoveType.correctCard) {
 		score += 10;
-		updateCards();
 	}
+
+	updateCards();
 
 	const totalMovesElement = document.getElementById("total-moves");
 	if (totalMovesElement !== null) {
@@ -76,7 +77,9 @@ const updateCards = () => {
 	gridElement.className = "grid-container";
 
 	cards.forEach((card) => {
-		gridElement.appendChild(generateCard(card, correctGuessedList.includes(card.key)));
+		gridElement.appendChild(
+			generateCard(card, correctGuessedList.includes(card.key) || card.key == currentGuess)
+		);
 	});
 
 	gridContainer.appendChild(gridElement);
@@ -90,6 +93,10 @@ const updateCards = () => {
 };
 
 export const renderCards = (cardList: Card[]): void => {
+	correctGuessedList = [];
+	currentGuess = "";
 	cards = cardList;
+	totalMoves = 0;
+	score = 0;
 	updateCards();
 };
