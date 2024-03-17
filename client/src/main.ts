@@ -57,15 +57,27 @@ if (firstGridElement !== null && secondGridElement !== null && thirdGridElement 
 	});
 }
 
-const usernameElementContent = (<HTMLInputElement>document.getElementById("username")).value;
-if (usernameElementContent !== "") {
-	username = usernameElementContent;
-}
+const sendData = async (score: number, totalMoves: number) => {
+	const response = await fetch("http://localhost:8888/store-data", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ username, score, totalMoves }),
+	});
+	const result = await response.json();
+	console.log(result);
+};
 
 const startGameButton = document.getElementById("start-game-button");
 
 if (startGameButton !== null) {
 	startGameButton.addEventListener("click", () => {
+		const usernameElementContent = (<HTMLInputElement>document.getElementById("username")).value;
+		if (usernameElementContent !== "") {
+			username = usernameElementContent;
+		}
+
 		renderGameScreen();
 	});
 }
@@ -142,6 +154,11 @@ const renderGameScreen = () => {
 
 				if (remainingTime === 0) {
 					clearInterval(timerInterval);
+					const totalMovesElement = document.getElementById("total-moves");
+					const scoreElement = document.getElementById("score");
+					if (scoreElement !== null && totalMovesElement !== null) {
+						sendData(Number(scoreElement.textContent), Number(totalMovesElement.textContent));
+					}
 					timerDiv.textContent = TIMER_FINISH_MESSAGE;
 					startButton.textContent = "RESTART";
 					startButton.className = "active-start-button";

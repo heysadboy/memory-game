@@ -1,5 +1,12 @@
 import "./style.css";
 
+const getData = async () => {
+	const response = await fetch("http://localhost:8888/get-data")
+		.then((r) => r.json())
+		.catch((err) => console.error(err));
+	console.log(response);
+};
+
 export const renderWelcomeScreen = () => {
 	const welcomeScreenContainer = document.getElementById("welcome-screen-container");
 	if (welcomeScreenContainer === null) {
@@ -7,6 +14,9 @@ export const renderWelcomeScreen = () => {
 	}
 	welcomeScreenContainer.className = "welcome-screen-container";
 	welcomeScreenContainer.innerHTML = "";
+
+	getData();
+
 	const welcomeScreenContent = `<h1 class="app-title">Memory Game</h1>
 		<div class="game-details-container">
 			<input id="username" type="text" placeholder="Enter username" />
