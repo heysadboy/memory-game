@@ -16,6 +16,13 @@
 - Needed to make extra configuration for testing.
 - Images are collected from https://www.pokemon.com/us/pokedex. A bit of a manual work.
 
+### Future Improvements
+
+- If development is continued without frontend library then need to optimize DOM manipulation a bit.
+- Add animation on card flip.
+- Add routing option in the app.
+- Add more testing.
+
 ### Game Play Screens
 
 ![Step 1](images/image1.png)
