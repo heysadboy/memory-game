@@ -2,13 +2,13 @@ import { Card } from "../components/card";
 import { START_TIME, TIMER_FINISH_MESSAGE, WIN_MESSAGE } from "../constants";
 import { EGameStatus, EGridChoice } from "../types";
 
-const generateNumberList = (cardNumbersLength: number) => {
+export const generateNumberList = (cardNumbersLength: number) => {
 	const cardNumbers = [...Array(cardNumbersLength).keys(), ...Array(cardNumbersLength).keys()];
 	return shuffleArray(cardNumbers);
 };
 
 // Shuffling by using Durstenfeld algorithm
-const shuffleArray = (array: number[]) => {
+export const shuffleArray = (array: number[]) => {
 	for (let i = array.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
 		[array[i], array[j]] = [array[j], array[i]];

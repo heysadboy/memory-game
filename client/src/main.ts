@@ -20,6 +20,7 @@ if (appElement !== null) {
 	appElement.innerHTML = "";
 }
 
+// Function to send data when the game completes or time ends
 const sendData = async (score: number, totalMoves: number) => {
 	fetch("http://localhost:8888/store-data", {
 		method: "POST",
@@ -30,6 +31,7 @@ const sendData = async (score: number, totalMoves: number) => {
 	});
 };
 
+// Render welcome screen in the beginning
 const welcomeScreenContainer = document.createElement("div");
 welcomeScreenContainer.id = "welcome-screen-container";
 appElement?.appendChild(welcomeScreenContainer);
@@ -41,6 +43,7 @@ const secondGridElement = document.getElementById("second-grid-choice");
 const thirdGridElement = document.getElementById("third-grid-choice");
 
 if (startGameButton !== null) {
+	// Update user details based on the user input in welcome screen
 	if (firstGridElement !== null && secondGridElement !== null && thirdGridElement !== null) {
 		firstGridElement.addEventListener("click", () => {
 			cardNumbersLength = 8;
@@ -79,10 +82,12 @@ if (startGameButton !== null) {
 			username = usernameElementContent;
 		}
 
+		// After getting all the details render game screen on click
 		renderGameScreen();
 	});
 }
 
+// Render leader board after welcome screen has been rendered
 renderLeaderBoard();
 
 const renderGameScreen = () => {
@@ -103,6 +108,7 @@ const renderGameScreen = () => {
 	appElement?.appendChild(messageContainer);
 	appElement?.appendChild(gridContainer);
 
+	// Generating list of randomly shuffled cards
 	cardList = generateCardList(cardNumbersLength);
 	renderHeader(gridChoice);
 	renderMessage(username);
@@ -155,6 +161,7 @@ const renderGameScreen = () => {
 					.toString()
 					.padStart(2, "0")}`;
 
+				// If game is finished the reset the header and send data
 				if (getGameStatus(gridChoice) === EGameStatus.finish) {
 					const totalMovesElement = document.getElementById("total-moves");
 					const scoreElement = document.getElementById("score");

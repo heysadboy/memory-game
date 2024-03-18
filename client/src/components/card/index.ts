@@ -10,6 +10,7 @@ export const generateCard = (card: Card, isGuessed: boolean, isCorrect: boolean)
 	cardWrapper.id = `card-container-${card.key}`;
 	let cardElement = "";
 
+	// Select class to show green or blue border based on the user result
 	if (isGuessed === true || isCorrect === true) {
 		cardWrapper.className = isCorrect ? "correct-card" : "selected-card";
 		cardElement = `<img

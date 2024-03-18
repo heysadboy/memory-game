@@ -1,6 +1,7 @@
 import { IUserDetail } from "../../types";
 
 export const renderLeaderBoard = () => {
+	// Get leader board data from the backend and display
 	fetch("http://localhost:8888/get-data")
 		.then((r) => r.json())
 		.then((response: IUserDetail[]) => {
@@ -8,7 +9,7 @@ export const renderLeaderBoard = () => {
 
 			// Sort the array
 			userDetails.sort((a: IUserDetail, b: IUserDetail) => {
-				if(b.score === a.score) {
+				if (b.score === a.score) {
 					return a.totalMoves - b.totalMoves;
 				}
 				return b.score - a.score;

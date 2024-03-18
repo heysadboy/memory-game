@@ -31,6 +31,7 @@ const checkCardMove = (cardKey: string): EMoveType => {
 	const guessedNumber = Number(cardKey.substring(0, cardKey.indexOf("_")));
 	const currentGuessNumber = Number(currentGuess.substring(0, currentGuess.indexOf("_")));
 
+	// If the guess is correct then add it to the list
 	if (currentGuessNumber === guessedNumber) {
 		correctGuessedList.push(currentGuess);
 		correctGuessedList.push(cardKey);
@@ -83,6 +84,7 @@ const updateCards = (gridChoice: EGridChoice) => {
 	gridContainer.innerHTML = "";
 	const gridElement = document.createElement("div");
 
+	// Set class based on the selected grid choice
 	if (gridChoice === EGridChoice.first) {
 		gridElement.className = "first-grid-container";
 	}
