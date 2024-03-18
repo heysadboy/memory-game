@@ -1,1 +1,5 @@
-[{ "username": "test", "score": 0, "totalMoves": 0 }]
+[
+	{ "username": "test", "score": 80, "totalMoves": 47 },
+	{ "username": "test", "score": 0, "totalMoves": 0 },
+	{ "username": "test 3", "score": 80, "totalMoves": 52 }
+]

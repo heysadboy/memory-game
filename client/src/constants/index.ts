@@ -9,4 +9,4 @@ export const START_TIME = (gridChoice: EGridChoice) => {
 };
 export const TIMER_FINISH_MESSAGE = "Time's up!";
 export const GAME_MESSAGE = (username: string) => `Gotta catch 'em all, ${username}!`;
-export const WIN_MESSAGE = "You caught them all!";
+export const WIN_MESSAGE = "You caught 'em all!";

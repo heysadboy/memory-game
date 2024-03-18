@@ -1,6 +1,7 @@
 import { Card } from "./components/card";
 import { renderCards } from "./components/cardGrid";
 import { renderHeader } from "./components/header";
+import { renderLeaderBoard } from "./components/leaderBoard";
 import { renderMessage } from "./components/message";
 import { renderWelcomeScreen } from "./components/welcomeScreen";
 import { TIMER_FINISH_MESSAGE } from "./constants";
@@ -19,59 +20,59 @@ if (appElement !== null) {
 	appElement.innerHTML = "";
 }
 
-const welcomeScreenContainer = document.createElement("div");
-welcomeScreenContainer.id = "welcome-screen-container";
-appElement?.appendChild(welcomeScreenContainer);
-renderWelcomeScreen();
-
-const firstGridElement = document.getElementById("first-grid-choice");
-const secondGridElement = document.getElementById("second-grid-choice");
-const thirdGridElement = document.getElementById("third-grid-choice");
-
-if (firstGridElement !== null && secondGridElement !== null && thirdGridElement !== null) {
-	firstGridElement.addEventListener("click", () => {
-		cardNumbersLength = 8;
-		gameTime = 120000;
-		gridChoice = EGridChoice.first;
-		firstGridElement.className = "selected-grid-choice";
-		secondGridElement.className = "choice-button";
-		thirdGridElement.className = "choice-button";
-	});
-
-	secondGridElement.addEventListener("click", () => {
-		cardNumbersLength = 18;
-		gameTime = 240000;
-		gridChoice = EGridChoice.second;
-		firstGridElement.className = "choice-button";
-		secondGridElement.className = "selected-grid-choice";
-		thirdGridElement.className = "choice-button";
-	});
-
-	thirdGridElement.addEventListener("click", () => {
-		cardNumbersLength = 32;
-		gameTime = 360000;
-		gridChoice = EGridChoice.third;
-		firstGridElement.className = "choice-button";
-		secondGridElement.className = "choice-button";
-		thirdGridElement.className = "selected-grid-choice";
-	});
-}
-
 const sendData = async (score: number, totalMoves: number) => {
-	const response = await fetch("http://localhost:8888/store-data", {
+	fetch("http://localhost:8888/store-data", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ username, score, totalMoves }),
 	});
-	const result = await response.json();
-	console.log(result);
 };
 
+const welcomeScreenContainer = document.createElement("div");
+welcomeScreenContainer.id = "welcome-screen-container";
+appElement?.appendChild(welcomeScreenContainer);
+renderWelcomeScreen();
+
 const startGameButton = document.getElementById("start-game-button");
+const firstGridElement = document.getElementById("first-grid-choice");
+const secondGridElement = document.getElementById("second-grid-choice");
+const thirdGridElement = document.getElementById("third-grid-choice");
 
 if (startGameButton !== null) {
+	if (firstGridElement !== null && secondGridElement !== null && thirdGridElement !== null) {
+		firstGridElement.addEventListener("click", () => {
+			cardNumbersLength = 8;
+			gameTime = 120000;
+			gridChoice = EGridChoice.first;
+			firstGridElement.className = "selected-grid-choice";
+			secondGridElement.className = "choice-button";
+			thirdGridElement.className = "choice-button";
+			startGameButton.className = "start-game-button";
+		});
+
+		secondGridElement.addEventListener("click", () => {
+			cardNumbersLength = 18;
+			gameTime = 240000;
+			gridChoice = EGridChoice.second;
+			firstGridElement.className = "choice-button";
+			secondGridElement.className = "selected-grid-choice";
+			thirdGridElement.className = "choice-button";
+			startGameButton.className = "start-game-button";
+		});
+
+		thirdGridElement.addEventListener("click", () => {
+			cardNumbersLength = 32;
+			gameTime = 360000;
+			gridChoice = EGridChoice.third;
+			firstGridElement.className = "choice-button";
+			secondGridElement.className = "choice-button";
+			thirdGridElement.className = "selected-grid-choice";
+			startGameButton.className = "start-game-button";
+		});
+	}
+
 	startGameButton.addEventListener("click", () => {
 		const usernameElementContent = (<HTMLInputElement>document.getElementById("username")).value;
 		if (usernameElementContent !== "") {
@@ -81,6 +82,8 @@ if (startGameButton !== null) {
 		renderGameScreen();
 	});
 }
+
+renderLeaderBoard();
 
 const renderGameScreen = () => {
 	if (appElement !== null) {
@@ -137,7 +140,7 @@ const renderGameScreen = () => {
 			renderMessage(username);
 			renderCards(cardList, gridChoice);
 
-			if (getGameStatus() === EGameStatus.finish) {
+			if (getGameStatus(gridChoice) === EGameStatus.finish) {
 				resetHeader();
 			}
 
@@ -151,6 +154,18 @@ const renderGameScreen = () => {
 				timerDiv.textContent = `${minutes.toString().padStart(2, "0")}:${seconds
 					.toString()
 					.padStart(2, "0")}`;
+
+				if (getGameStatus(gridChoice) === EGameStatus.finish) {
+					const totalMovesElement = document.getElementById("total-moves");
+					const scoreElement = document.getElementById("score");
+					if (scoreElement !== null && totalMovesElement !== null) {
+						sendData(Number(scoreElement.textContent), Number(totalMovesElement.textContent));
+					}
+					resetHeader();
+					clearInterval(timerInterval);
+					startButton.textContent = "RESTART";
+					startButton.className = "active-start-button";
+				}
 
 				if (remainingTime === 0) {
 					clearInterval(timerInterval);

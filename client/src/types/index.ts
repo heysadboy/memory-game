@@ -16,3 +16,9 @@ export enum EGridChoice {
 	second,
 	third,
 }
+
+export interface IUserDetail {
+	username: string;
+	score: number;
+	totalMoves: number;
+}

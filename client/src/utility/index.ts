@@ -1,6 +1,6 @@
 import { Card } from "../components/card";
-import { START_TIME, TIMER_FINISH_MESSAGE } from "../constants";
-import { EGameStatus } from "../types";
+import { START_TIME, TIMER_FINISH_MESSAGE, WIN_MESSAGE } from "../constants";
+import { EGameStatus, EGridChoice } from "../types";
 
 const generateNumberList = (cardNumbersLength: number) => {
 	const cardNumbers = [...Array(cardNumbersLength).keys(), ...Array(cardNumbersLength).keys()];
@@ -28,13 +28,17 @@ export const generateCardList = (cardNumbersLength: number): Card[] => {
 	return cardList;
 };
 
-export const getGameStatus = () => {
+export const getGameStatus = (gridChoice: EGridChoice) => {
 	const timerElement = document.getElementById("timer");
-	if (timerElement?.textContent === START_TIME) {
+	if (timerElement?.textContent === START_TIME(gridChoice)) {
 		return EGameStatus.start;
 	}
 
 	if (timerElement?.textContent === TIMER_FINISH_MESSAGE) {
+		return EGameStatus.finish;
+	}
+	const messageElement = document.getElementById("game-message");
+	if (messageElement?.textContent === WIN_MESSAGE) {
 		return EGameStatus.finish;
 	}
 

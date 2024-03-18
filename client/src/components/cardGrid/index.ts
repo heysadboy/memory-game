@@ -44,7 +44,7 @@ const checkCardMove = (cardKey: string): EMoveType => {
 
 const handleCardClick = (card: Card, gridChoice: EGridChoice) => {
 	// Only enable click action on the card when timer starts
-	if (getGameStatus() !== EGameStatus.progress) {
+	if (getGameStatus(gridChoice) !== EGameStatus.progress) {
 		return;
 	}
 
