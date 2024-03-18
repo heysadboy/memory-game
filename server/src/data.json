@@ -1,1 +1,8 @@
-[{"username":"test","score":80,"totalMoves":47},{"username":"test","score":0,"totalMoves":0},{"username":"test 3","score":80,"totalMoves":52},{"username":"test 4","score":0,"totalMoves":0},{"username":"test 5","score":80,"totalMoves":46},{"username":"User 6","score":80,"totalMoves":37},{"username":"User 6","score":0,"totalMoves":0},{"username":"User 6","score":80,"totalMoves":40}]
+[
+	{ "username": "User 1", "score": 0, "totalMoves": 0 },
+	{ "username": "User 2", "score": 0, "totalMoves": 0 },
+	{ "username": "User 3", "score": 80, "totalMoves": 52 },
+	{ "username": "User 4", "score": 0, "totalMoves": 0 },
+	{ "username": "User 5", "score": 80, "totalMoves": 46 },
+	{ "username": "User 6", "score": 80, "totalMoves": 37 }
+]
